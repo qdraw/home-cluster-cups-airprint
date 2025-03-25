@@ -8,26 +8,33 @@ RUN apt-get -y install \
       cups-daemon \
       cups-client \
       cups-pdf \
-      brother-lpr-drivers-extra brother-cups-wrapper-extra \
       avahi-daemon \
       libnss-mdns \
       whois \
       curl \
       inotify-tools \
-      libpng16-16 \
+      libpng16-16t64 \
       python3-cups \
       samba-client \
+      printer-driver-gutenprint \
+      cups-browsed \
+      colord \
+      avahi-utils \
+      hplip \
+      cups-ipp-utils \
+      foomatic-db \
+      hpijs-ppds \
+      printer-driver-hpijs \
+      libcupsimage2 \
+      system-config-printer \
+      xauth \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
     && rm -rf /var/tmp/*
 
-COPY brother /tmp
-RUN dpkg -i --force-all /tmp/hl*.deb
-RUN dpkg -i --force-all /tmp/cupswrapper*.deb
-RUN rm /tmp/*.deb
-
+# Install Airprint
 COPY airprint/ /opt/airprint/
 
 COPY healthcheck.sh /
