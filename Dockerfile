@@ -25,7 +25,7 @@ RUN apt-get -y install \
       foomatic-db \
       hpijs-ppds \
       printer-driver-hpijs \
-      libcupsimage2 \
+      libcupsimage2t64 \
       system-config-printer \
       xauth \
     && apt-get autoremove -y \
