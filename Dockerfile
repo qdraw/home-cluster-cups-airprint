@@ -36,6 +36,22 @@ RUN apt-get -y install \
     && rm -rf /tmp/* \
     && rm -rf /var/tmp/*
 
+RUN sed -i "s/^#\ \+\(en_US.UTF-8\)/\1/" /etc/locale.gen \
+&& locale-gen en_US en_US.UTF-8
+
+ENV LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    LANGUAGE=en_US:en
+
+RUN useradd \
+    --groups=sudo,lp,lpadmin \
+    --create-home \
+    --home-dir=/home/print \
+    --shell=/bin/bash \
+    --password=$(mkpasswd print) \
+    print \
+    && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers    
+
 # Install Airprint
 COPY airprint/ /opt/airprint/
 
