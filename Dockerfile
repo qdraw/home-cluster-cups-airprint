@@ -28,6 +28,8 @@ RUN apt-get -y install \
       libcupsimage2t64 \
       system-config-printer \
       xauth \
+      usbutils \
+      net-tools \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
