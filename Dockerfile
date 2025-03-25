@@ -38,9 +38,9 @@ RUN apt-get -y install \
 COPY airprint/ /opt/airprint/
 
 COPY healthcheck.sh /
-COPY start-cups.sh /root/
-RUN chmod +x /healthcheck.sh /root/start-cups.sh
-#HEALTHCHECK --interval=10s --timeout=3s CMD /healthcheck.sh
+RUN mkdir -p /opt
+COPY start-cups.sh /opt/
+RUN chmod +x /healthcheck.sh /opt/start-cups.sh
 
 ENV TZ="GMT" \
     CUPS_ADMIN_USER="admin" \
@@ -57,4 +57,4 @@ ENV TZ="GMT" \
 # This will use port 631
 EXPOSE 631
 
-ENTRYPOINT ["/root/start-cups.sh"]
+ENTRYPOINT ["/opt/start-cups.sh"]
